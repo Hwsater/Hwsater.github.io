@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>C语言(2020-10-24) | Hwsater&#39;s Blog</title>
+  
+  
+  
+  <!--link rel="stylesheet" href="//cdn.jsdelivr.net/highlight.js/9.10.0/styles/github-gist.min.css"-->
+  
+<link rel="stylesheet" href="//cdn.jsdelivr.net/highlight.js/9.10.0/styles/github-gist.min.css">
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+<div class="Shell">
+    <aside class='SideBar'>
+    <section class='avatar' style="background-image: url()">
+        <div class='av-pic' style="background-image: url(/assets/head_2.jpg)">
+        </div>
+    </section>
+    <section class='menu'>
+        <div>Hwsater&#39;s Blog</div>
+        
+            <div>今天你偷懒了么？</div>
+        
+        <ul>
+          
+            <a href="/" class="Btn">
+              <li>Home</li>
+            </a>  
+          
+            <a href="/archives/" class="Btn">
+              <li>Archive</li>
+            </a>  
+          
+            <a href="/tags" class="Btn">
+              <li>Tags</li>
+            </a>  
+          
+            <a href="/categories/" class="Btn">
+              <li>Categories</li>
+            </a>  
+          
+            <a href="/about" class="Btn">
+              <li>About</li>
+            </a>  
+          
+        </ul>
+    </section>
+    <section class="media">
+        
+    </section>
+</aside>
+
+    <div class="container">
+        <div data-pager-shell>
+            <div>
+  <article class='ContentView'>
+    <header class='PageTitle'>
+        <h1>C语言(2020-10-24)</h1>
+    </header>
+
+    <section>
+      <h4 id="素数筛（用素数标记合数）"><a href="#素数筛（用素数标记合数）" class="headerlink" title="素数筛（用素数标记合数）"></a>素数筛（用素数标记合数）</h4><ul>
+<li>标记一个范围内的数字是否是合数，没有被标记的则为素数</li>
+<li>算法的空间复杂度为O(N)，时间复杂度为O(N * loglogN)</li>
+<li>总体思想使用素数去标记不是素数的数字，例如我知道了i是素数，那么2 * i、3 * i、4 * i……就都不是素数</li>
+</ul>
+<p>具体步骤：</p>
+<ul>
+<li>用prime[i]来标记i是否是合数</li>
+<li>标记为1的数字为合数，否则为素数</li>
+<li>第一次知道2是素数，则将2的倍数标记为1</li>
+<li>向后找到第一个没有被标记的数字i</li>
+<li>将i的倍数全部标记为合数</li>
+<li>重复4~6步，直到标记完范围内的所有数字</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> max_n 100</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> prime[max_n + <span class="number">5</span>];<span class="comment">//函数外部，主动清零</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= max_n; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (prime[i]) <span class="keyword">continue</span>;</span><br><span class="line">        prime[++prime[<span class="number">0</span>]] = i;<span class="comment">//++prime[0] 计数器，按顺序存储,prime[0]存储了素数的数量，从prime[1]开始存储素数</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = i * <span class="number">2</span>; j &lt;= max_n; j += i) &#123;</span><br><span class="line">            prime[j] = <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    init();</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= prime[<span class="number">0</span>]; i++) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d\n"</span>,prime[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="减少缩进办法（减少不必要的缩进）"><a href="#减少缩进办法（减少不必要的缩进）" class="headerlink" title="减少缩进办法（减少不必要的缩进）"></a>减少缩进办法（减少不必要的缩进）</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//示例：</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= max_n; i++) &#123;</span><br><span class="line">    <span class="keyword">if</span> (!prime[i]) &#123;<span class="comment">//可以使用continue减少一个缩进</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = i * <span class="number">2</span>; j &lt;= max_n; j += i) &#123;</span><br><span class="line">            prime[j] = <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">------------------------------------------------</span><br><span class="line"></span><br><span class="line"><span class="comment">//简化版本，对偶逻辑，使用continue</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= max_n; i++) &#123;</span><br><span class="line">    <span class="keyword">if</span> (prime[i]) <span class="keyword">continue</span>;<span class="comment">//少了一个缩进</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j = i * <span class="number">2</span>; j &lt;= max_n; j += i) &#123;</span><br><span class="line">    	prime[j] = <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="练习题"><a href="#练习题" class="headerlink" title="练习题"></a>练习题</h5><p>By listing the first six prime numbers:2,3,5,7,11,and 13, we can see that the 6th prime is 13.</p>
+<p>What is the 10001st prime number?</p>
+<ul>
+<li>已知，题目中求10001个素数</li>
+<li>通过估算，第10001个素数的大小不会超过20万</li>
+<li>如果通过枚举2~20万以内的所有数字，并且判断其是不是素数，这个算法的复杂度是O(n * sqrt(n))</li>
+</ul>
+<p>扩展练习：</p>
+<ul>
+<li>请写一个程序，快速求出一个范围内（假设为10000）所有数字的最小素因子。</li>
+<li>请写一个程序，快速求出一个范围内（假设为10000）所有数字的最大素因子。</li>
+</ul>
+<p>引导思考：</p>
+<ul>
+<li>6被标记了几次？（2）</li>
+<li>30被标记了几次？（3）</li>
+<li>如果一个数字N的素数分解式中含有m种不同的素数，N被标记了几次？（m）</li>
+<li>有没有一种方法使得范围内的每个数字，仅被标记一次。</li>
+</ul>
+<h4 id="线性筛（仅被标记一次）"><a href="#线性筛（仅被标记一次）" class="headerlink" title="线性筛（仅被标记一次）"></a>线性筛（仅被标记一次）</h4><ul>
+<li>标记一个范围内的数字是否是合数，没有被标记的则为素数</li>
+<li>算法的空间复杂度为O(N)，时间复杂度为O(N)</li>
+<li>总体思想是用一个整数M（保持为最大的）去标记合数N（N = p * M），其中N和M具有如下性质<ul>
+<li>N中最小的素数为p</li>
+<li>N可以表示成为p * M</li>
+<li>p一定小于等于M中最小的素因子</li>
+<li>利用M * P‘（所有不大于M中最小素数的集合）标记$N_1$、$N_2$、$N_3$……</li>
+</ul>
+</li>
+</ul>
+<h5 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h5><ul>
+<li>若N = 30，则算法中的M、p各为多少？（15，2）</li>
+<li>若N = 8，则算法中的M、p各为多少？（4，2）</li>
+<li>若N = 45，则算法中的M、p各为多少？（15，3）</li>
+<li>若M = 4，可以标记的N都有哪些？（4，2）</li>
+<li>若M = 25，可以标记的N都有哪些？（25，2）（25，3）（25，4）（25，5）</li>
+<li>若M = 45，可以标记的N都有哪些？（15，3）</li>
+<li>能标记90的M等于多少？45</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> max_n 200000</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> prime[max_n + <span class="number">5</span>];</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;=max_n; i++) &#123;<span class="comment">//i为枚举出来的M值</span></span><br><span class="line">        <span class="keyword">if</span> (!prime[i]) prime[++prime[<span class="number">0</span>]] = i;<span class="comment">//将素数保存到数组中</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= prime[<span class="number">0</span>]; j++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (i * prime[j] &gt; max_n) <span class="keyword">break</span>;<span class="comment">//M * p不能大于定义的最大范围</span></span><br><span class="line">            prime[prime[j] * i] = <span class="number">1</span>;<span class="comment">//用素数标记合数</span></span><br><span class="line">            <span class="keyword">if</span> (i % prime[j] == <span class="number">0</span>) <span class="keyword">break</span>;<span class="comment">//M % p == 0 表示M中含有比p小的素因子，则退出循环，不继续标记避免重复。</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    init();</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, prime[<span class="number">10001</span>]);</span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">    for (int i = 1; i &lt;= prime[0]; i++) &#123;</span></span><br><span class="line"><span class="comment">        printf("%d\n",prime[i]);</span></span><br><span class="line"><span class="comment">    &#125;</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="折半查找（二分查找，前提是具有单调性）"><a href="#折半查找（二分查找，前提是具有单调性）" class="headerlink" title="折半查找（二分查找，前提是具有单调性）"></a>折半查找（二分查找，前提是具有单调性）</h4><p>min是头指针；max是尾指针；mid = (max + min) / 2;</p>
+<p>tips：（数组和函数之间的转换）</p>
+<ul>
+<li>函数是压缩了的数组：都满足一定的映射关系，数组记录了映射关系下的值，函数记录了映射关系</li>
+<li>数组是展开了的函数</li>
+</ul>
+<p>搜索：记忆化，将多次出现的数据记录在数组中</p>
+<p>函数=&gt;数组 空间换时间（空间 ↑ 时间↓）</p>
+<p>数组=&gt;函数 时间换空间（时间↑ 空间↓）</p>
+<h5 id="练习-1"><a href="#练习-1" class="headerlink" title="练习"></a>练习</h5><p>实现二分查找</p>
+<p>数组版本：传指针</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">binary_search</span><span class="params">(<span class="keyword">int</span> *arr, <span class="keyword">int</span> n, <span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> <span class="built_in">min</span> = <span class="number">0</span>,  <span class="built_in">max</span> = n - <span class="number">1</span>, mid;</span><br><span class="line">    <span class="keyword">while</span> (<span class="built_in">min</span> &lt;= <span class="built_in">max</span>) &#123;</span><br><span class="line">        mid = (<span class="built_in">min</span> + <span class="built_in">max</span>) &gt;&gt; <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span> (arr[mid] == x) <span class="keyword">return</span> mid;</span><br><span class="line">        <span class="keyword">if</span> (arr[mid] &lt; x) <span class="built_in">min</span> = mid + <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="built_in">max</span> = mid - <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n, x;</span><br><span class="line">    <span class="keyword">int</span> num[<span class="number">10</span>];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) num[i] = i * i;</span><br><span class="line">    <span class="keyword">while</span> (~<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;x)) &#123;</span><br><span class="line">        <span class="keyword">int</span> ans = binary_search(num, <span class="number">100</span>, x);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d * %d =  %d\n"</span>, ans, ans, ans * ans);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>函数版本：传函数指针</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">f</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> x * x;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">binary_search</span><span class="params">(<span class="keyword">int</span> (*arr)(<span class="keyword">int</span>), <span class="keyword">int</span> n, <span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> <span class="built_in">min</span> = <span class="number">0</span>,  <span class="built_in">max</span> = n - <span class="number">1</span>, mid;</span><br><span class="line">    <span class="keyword">while</span> (<span class="built_in">min</span> &lt;= <span class="built_in">max</span>) &#123;</span><br><span class="line">        mid = (<span class="built_in">min</span> + <span class="built_in">max</span>) &gt;&gt; <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span> (arr(mid) == x) <span class="keyword">return</span> mid;</span><br><span class="line">        <span class="keyword">if</span> (arr(mid) &lt; x) <span class="built_in">min</span> = mid + <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="built_in">max</span> = mid - <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n, x;</span><br><span class="line">    <span class="keyword">int</span> num[<span class="number">10</span>];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) num[i] = i * i;</span><br><span class="line">    <span class="keyword">while</span> (~<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;x)) &#123;</span><br><span class="line">        <span class="keyword">int</span> ans = binary_search(f, <span class="number">100</span>, x);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d * %d =  %d\n"</span>, ans, ans, ans * ans);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="使用二分查找实现sqrt-函数"><a href="#使用二分查找实现sqrt-函数" class="headerlink" title="使用二分查找实现sqrt()函数"></a>使用二分查找实现sqrt()函数</h4><p>n = $x^2$，已知n，求x值</p>
+<p>double sqrt(double);</p>
+<p>注意：如果所要找的数小于1.0（比如0.01开根号为0.1，比其本身大）</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;math.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">double</span> <span class="title">f</span><span class="params">(<span class="keyword">double</span> x)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> x * x;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">double</span> <span class="title">binary_search</span><span class="params">(<span class="keyword">double</span> (*arr)(<span class="keyword">double</span>), <span class="keyword">double</span>  x)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">double</span> <span class="built_in">min</span> = <span class="number">0</span>,  <span class="built_in">max</span> = x, mid;</span><br><span class="line">    <span class="keyword">if</span> (x &lt; <span class="number">1.0</span>) <span class="built_in">max</span> = <span class="number">1.0</span>;</span><br><span class="line">    <span class="meta">#<span class="meta-keyword">define</span> EPSL 1e-7<span class="comment">//1X10^(-7)</span></span></span><br><span class="line">    <span class="keyword">while</span> ( <span class="built_in">max</span> - <span class="built_in">min</span> &gt; EPSL) &#123;</span><br><span class="line">        mid = (<span class="built_in">min</span> + <span class="built_in">max</span>) / <span class="number">2.0</span>;</span><br><span class="line">        <span class="keyword">if</span> (arr(mid) &lt; x) <span class="built_in">min</span> = mid;<span class="comment">//不能+1，可能期间含有所求解</span></span><br><span class="line">        <span class="keyword">else</span> <span class="built_in">max</span> = mid;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">#<span class="meta-keyword">undef</span> EPSL</span></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">min</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">double</span> x;</span><br><span class="line">    <span class="keyword">while</span> (~<span class="built_in">scanf</span>(<span class="string">"%lf"</span>, &amp;x)) &#123;</span><br><span class="line">        <span class="keyword">double</span> ans = binary_search(f, x);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"sqrt(%g) = %g\n"</span>, x, <span class="built_in">sqrt</span>(x));</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"my_sqrt(%g) = %g\n"</span>, x, ans);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="牛顿迭代法实现sqrt-函数（求一元高次方程根）"><a href="#牛顿迭代法实现sqrt-函数（求一元高次方程根）" class="headerlink" title="牛顿迭代法实现sqrt()函数（求一元高次方程根）"></a>牛顿迭代法实现sqrt()函数（求一元高次方程根）</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;math.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">double</span> <span class="title">F</span><span class="params">(<span class="keyword">double</span> x, <span class="keyword">double</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> x * x - n;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">double</span> <span class="title">f</span><span class="params">(<span class="keyword">double</span> x)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">2</span> * x;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">double</span> <span class="title">NewTon</span><span class="params">(<span class="keyword">double</span> (*F)(<span class="keyword">double</span>, <span class="keyword">double</span>), <span class="keyword">double</span> (*f)(<span class="keyword">double</span>), <span class="keyword">double</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">double</span> x = n / <span class="number">2.0</span>;</span><br><span class="line">    <span class="meta">#<span class="meta-keyword">define</span> EPSL 1e-7</span></span><br><span class="line">    <span class="keyword">while</span> (<span class="built_in">fabs</span>(F(x, n)) &gt; EPSL) &#123;</span><br><span class="line">        x -= F(x, n) / f(x);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">#<span class="meta-keyword">undef</span> EPSL</span></span><br><span class="line">    <span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">double</span> <span class="title">my_sqrt</span><span class="params">(<span class="keyword">double</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> NewTon(F, f, n);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">double</span> n;</span><br><span class="line">    <span class="keyword">while</span> (~<span class="built_in">scanf</span>(<span class="string">"%lf"</span>, &amp;n)) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"sqrt(%g) = %g\n"</span>, n, <span class="built_in">sqrt</span>(n));</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"my_sqrt(%g) = %g\n"</span>, n, my_sqrt(n));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="数组练习"><a href="#数组练习" class="headerlink" title="数组练习"></a>数组练习</h4><h5 id="数组地址加1跳跃的大小是多少？"><a href="#数组地址加1跳跃的大小是多少？" class="headerlink" title="数组地址加1跳跃的大小是多少？"></a>数组地址加1跳跃的大小是多少？</h5><p><strong>地址+1，跳跃当前所表示地址类型的字节数</strong>（一维数组）</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> max_n 100</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> num[max_n + <span class="number">5</span>];<span class="comment">//和内存大小有关系</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> arr[max_n + <span class="number">5</span>];<span class="comment">//定义在栈区，先进后出，最大约8Mb</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"sizeof(arr) = %lu\n"</span>, <span class="keyword">sizeof</span>(arr));<span class="comment">//105 * 4 = 420个字节</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"&amp;arr = %p, &amp;arr[0] = %p\n"</span>, arr, &amp;arr[<span class="number">0</span>]);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"arr + 1 = %p, arr + 2 = %p\n"</span>, arr + <span class="number">1</span>, arr + <span class="number">2</span>);<span class="comment">//地址类型有关</span></span><br><span class="line">    <span class="keyword">char</span> *p = (<span class="keyword">char</span> *)arr;<span class="comment">//地址+1，跳跃当前所表示地址类型的字节数</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"p + 1 = %p, p + 2 = %p\n"</span>, p + <span class="number">1</span>, p + <span class="number">2</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; max_n; i++) &#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;arr[i]);<span class="comment">//arr + i</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>二维数组</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> arr[<span class="number">100</span>][<span class="number">100</span>];</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"arr = %p, arr + 1 = %p\n"</span>, arr, arr + <span class="number">1</span>);</span><br></pre></td></tr></table></figure>
+
+<p>差400（4 * 100），如果<code>arr[100][2]</code>，差8（2 * 4）</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> **q;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"q = %p, q + 1 = %p\n"</span>, q, q + <span class="number">1</span>);</span><br></pre></td></tr></table></figure>
+
+<p>q = 0x0, q + 1 = 0x08</p>
+<p>int **q 存储的是int *类型的，本质是指针，占8字节</p>
+<p>int *存储的是int类型</p>
+<h5 id="如何修改二维数组的值？"><a href="#如何修改二维数组的值？" class="headerlink" title="如何修改二维数组的值？"></a>如何修改二维数组的值？</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> max_n 100</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">func</span><span class="params">(<span class="keyword">int</span> (*num)[<span class="number">100</span>])</span> </span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"num = %p, num + 1 = %p\n"</span>, num, num + <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">return</span> ;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// int arr[max_n + 5];//定义在栈区，先进后出，最大约8Mb</span></span><br><span class="line">    <span class="keyword">int</span> arr[<span class="number">100</span>][<span class="number">100</span>];</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"sizeof(arr) = %lu\n"</span>, <span class="keyword">sizeof</span>(arr));<span class="comment">//105 * 4 = 420个字节</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"&amp;arr = %p, &amp;arr[0] = %p\n"</span>, arr, &amp;arr[<span class="number">0</span>]);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"arr + 1 = %p, arr + 2 = %p\n"</span>,arr + <span class="number">1</span>, arr + <span class="number">2</span>);<span class="comment">//地址类型有关</span></span><br><span class="line">    <span class="keyword">char</span> *p = (<span class="keyword">char</span> *)arr;<span class="comment">//地址+1，跳跃当前所表示地址类型的字节数</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"p + 1 = %p, p + 2 = %p\n"</span>, p + <span class="number">1</span>, p + <span class="number">2</span>);</span><br><span class="line">    func(arr);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"arr = %p, arr + 1 = %p\n"</span>, arr, arr + <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">int</span> **q;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"q = %p, q + 1 = %p\n"</span>, q, q + <span class="number">1</span>);</span><br><span class="line">   <span class="comment">// scanf("%d", &amp;n);</span></span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">    for (int i = 0; i &lt; max_n; i++) &#123;</span></span><br><span class="line"><span class="comment">        scanf("%d", &amp;arr[i]);//arr + i</span></span><br><span class="line"><span class="comment">    &#125;</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>int arr[100][100];</code> =&gt; <code>void func(int (*num)[100])</code></p>
+<p><code>int arr[100][100][32];</code> =&gt; <code>void func(int (*num)[100][32])</code></p>
+<h4 id="二分查找（递归版本）"><a href="#二分查找（递归版本）" class="headerlink" title="二分查找（递归版本）"></a>二分查找（递归版本）</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">binary_search</span><span class="params">(<span class="keyword">int</span> *arr, <span class="keyword">int</span> l, <span class="keyword">int</span> r, <span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (l &gt; r) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">int</span> mid = (l + r) &gt;&gt; <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span> (arr[mid] == x) <span class="keyword">return</span> mid;</span><br><span class="line">    <span class="keyword">if</span> (arr[mid] &lt; x) l = mid + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">else</span> r = mid - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">return</span> binary_search(arr, l, r, x);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> arr[<span class="number">100</span>], n;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) <span class="built_in">scanf</span>(<span class="string">"%d"</span>, arr + i);</span><br><span class="line">    <span class="keyword">int</span> x;</span><br><span class="line">    <span class="keyword">while</span>(~<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;x)) &#123;</span><br><span class="line">        <span class="keyword">int</span> ans = binary_search(arr, <span class="number">0</span>, n - <span class="number">1</span>, x);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"find %d in arr[%d]\n"</span>, x, ans);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+      
+
+    </section>
+    
+      <section class='ArticleMeta'>
+          <div>
+            发布于&nbsp;
+            <time datetime="2020-10-23T16:00:00.000Z" itemprop="datePublished">
+              2020-10-24
+            </time>
+          </div>
+          
+            <div>
+              tags: 
+  <li class="meta-text">
+  { <a href="/tags/C/">C</a> }
+  </li>
+
+
+            </div>
+          
+      </section>
+    
+    
+</article>
+
+  
+</div>
+
+            <footer>
+    <div>© 2020 - John Doe </div>
+    <div>
+        <span>
+            Powered by <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a>
+        </span>
+        ,
+        <span>
+            Theme - <a href="https://github.com/nameoverflow/hexo-theme-icalm" target="_blank" rel="noopener">Icalm</a>
+        </span>
+    </div>
+</footer>
+
+        </div>
+    </div>
+</div>
+
+<script src="/js/pager/dist/singlepager.js"></script>
+
+<script>
+var sp = new Pager('data-pager-shell')
+
+</script>
+</body>
+</html>
