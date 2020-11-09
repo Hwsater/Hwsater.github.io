@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>C语言(2020-10-13+15) | Hwsater&#39;s Blog</title>
+  
+  
+  
+  <!--link rel="stylesheet" href="//cdn.jsdelivr.net/highlight.js/9.10.0/styles/github-gist.min.css"-->
+  
+<link rel="stylesheet" href="//cdn.jsdelivr.net/highlight.js/9.10.0/styles/github-gist.min.css">
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+<div class="Shell">
+    <aside class='SideBar'>
+    <section class='avatar' style="background-image: url()">
+        <div class='av-pic' style="background-image: url(/assets/head_2.jpg)">
+        </div>
+    </section>
+    <section class='menu'>
+        <div>Hwsater&#39;s Blog</div>
+        
+            <div>虚荣心使我进步</div>
+        
+        <ul>
+          
+            <a href="/" class="Btn">
+              <li>Home</li>
+            </a>  
+          
+            <a href="/archives/" class="Btn">
+              <li>Archive</li>
+            </a>  
+          
+            <a href="/tags" class="Btn">
+              <li>Tags</li>
+            </a>  
+          
+            <a href="/categories/" class="Btn">
+              <li>Categories</li>
+            </a>  
+          
+            <a href="/about" class="Btn">
+              <li>About</li>
+            </a>  
+          
+        </ul>
+    </section>
+    <section class="media">
+        
+    </section>
+</aside>
+
+    <div class="container">
+        <div data-pager-shell>
+            <div>
+  <article class='ContentView'>
+    <header class='PageTitle'>
+        <h1>C语言(2020-10-13+15)</h1>
+    </header>
+
+    <section>
+      <h2 id="C语言第一课"><a href="#C语言第一课" class="headerlink" title="C语言第一课"></a>C语言第一课</h2><blockquote>
+<p>学好C语言：学习的是思维逻辑，而不是简单的语法</p>
+</blockquote>
+<h4 id="C语言特征"><a href="#C语言特征" class="headerlink" title="C语言特征"></a>C语言特征</h4><blockquote>
+<p>编程泛式：所支持的程序实现模式。</p>
+</blockquote>
+<p>C语言是面向过程的一门编程语言。</p>
+<p>C++支持四种编程泛式的语言：面向过程、面向对象、泛型编程、函数式编程。</p>
+<h4 id="输出函数printf"><a href="#输出函数printf" class="headerlink" title="输出函数printf"></a>输出函数printf</h4><p>头文件： stdio.h</p>
+<p>原型：<code>int printf(const char *format, ...);</code></p>
+<p>format ： 格式控制<strong>字符串</strong> ；… ：可变参数列表； 返回值：输出字符的数量。</p>
+<p>返回值为int，例子：如果<code>n = 123;</code>，则返回为3，若遇到回车，即<code>&#39;\n&#39;</code>（这是一个字符），则返回值为4。</p>
+<h4 id="输入函数scanf"><a href="#输入函数scanf" class="headerlink" title="输入函数scanf"></a>输入函数scanf</h4><p>头文件： stdio.h</p>
+<p>原型：<code>int scantf(const char *format, ...);</code></p>
+<p>format ： 格式控制<strong>字符串</strong> ；… ：可变参数列表； 返回值：成功读入的参数个数。</p>
+<p>返回值可能为正整数、0（<code>scanf(&quot;hello&quot;);</code>）。负数（不合法），常用于while判断条件中（EOF = -1，End of file）。</p>
+<h4 id="习题"><a href="#习题" class="headerlink" title="习题"></a>习题</h4><ul>
+<li>请使用printf函数，求解一个数字n的十进制表示的数字位数。</li>
+</ul>
+<p>答：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n);<span class="comment">//stdin（文件描述符） 标准输入</span></span><br><span class="line">    n = <span class="built_in">printf</span>(<span class="string">"%d"</span>, n);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">" has %d digits\n"</span>, n);<span class="comment">//stdout 标准输出</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li>请写一个程序，读入一个行字符串（可能包含空格），输出这个字符串中字符的数量。</li>
+</ul>
+<p>当<em>scanf读到空格（分隔符）时候，就停止了</em>，那么如何读入空格以及空格之后的字符呢？</p>
+<p>答：使用<strong>正则表达式</strong>。</p>
+<blockquote>
+<p>正则表达式：是对字符串操作的一种逻辑公式，就是用事先定义好的一些特定字符、及这些特定字符的组合，组成一个“规则字符串”，这个“规则字符串”用来表达对字符串的一种过滤逻辑。（人话：把一串字符按你的正则规则筛选出你想要的内容）</p>
+</blockquote>
+<p>参考：<a href="https://zhuanlan.zhihu.com/p/68180494" target="_blank" rel="noopener">知乎</a></p>
+<p>例子：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">char</span> str[<span class="number">100</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%[^\n]"</span>, str);</span><br><span class="line">    <span class="comment">//scanf("%s", str);</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%s\n"</span>, str);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>结果：</p>
+<p><img src="C:%5CUsers%5Chwsat%5CDesktop%5C1.print.png" alt="1.print"></p>
+<p>答：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">    <span class="keyword">char</span> str[<span class="number">100</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%[^\n]"</span>, str);</span><br><span class="line">    n = <span class="built_in">printf</span>(<span class="string">"%s"</span>, str);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">" has %d digits\n"</span>, n);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="如何查看文件权限"><a href="#如何查看文件权限" class="headerlink" title="如何查看文件权限"></a>如何查看文件权限</h4><p><code>ls -al 文件名称</code></p>
+<p>r ：可读      w：可写   x：可执行</p>
+<h4 id="printf家族：sprintf-fprintf"><a href="#printf家族：sprintf-fprintf" class="headerlink" title="printf家族：sprintf,fprintf"></a>printf家族：sprintf,fprintf</h4><p>sprintf（字符串）：打印输出内容，向字符数组中打印值（打印位置不同）。主要作用于<strong>字符串拼接</strong>。</p>
+<p>fprintf：打印到文件当中去。</p>
+<p>本质功能没有区别，只是打印位置不同。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">printf</span>(<span class="string">"%s\n"</span>, p);</span><br><span class="line">FILE *fout = fopen(<span class="string">"output"</span>, <span class="string">"w"</span>);</span><br><span class="line"><span class="built_in">fprintf</span>(<span class="built_in">stdout</span>, <span class="string">"stdout = %s\n"</span>, p);</span><br><span class="line"><span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">"stderr = %s\n"</span>, p);</span><br><span class="line"><span class="keyword">return</span> <span class="number">0</span>;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="标准输出重定向"><a href="#标准输出重定向" class="headerlink" title="标准输出重定向"></a>标准输出重定向</h4><p> <code>‘&gt;’</code>  标准输出重定向符，<code>./a.out &gt; output</code> 将标准输出打印到output文件中。其中，stderr是标准错误输出，无法打印到output中。（stdout可以打印）</p>
+<h4 id="按位与"><a href="#按位与" class="headerlink" title="按位与"></a>按位与</h4><p><code>n &amp; 1</code>：二进制下n的最低位置为1</p>
+<p><code>n &amp; 2</code>：二进制下n的倒数第二位位置为1</p>
+<p>…………</p>
+<h4 id="维基百科"><a href="#维基百科" class="headerlink" title="维基百科"></a>维基百科</h4><blockquote>
+<p>合理进行搜索引擎科学上网，进行自主学习。</p>
+</blockquote>
+<h4 id="cpp-reference"><a href="#cpp-reference" class="headerlink" title="cpp reference"></a>cpp reference</h4><p><a href="https://en.cppreference.com/w/" target="_blank" rel="noopener">官方文档</a></p>
+<h4 id="基本运算符"><a href="#基本运算符" class="headerlink" title="基本运算符"></a>基本运算符</h4><table>
+<thead>
+<tr>
+<th align="center">运算符</th>
+<th align="center">说明</th>
+<th align="center">例子</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">=</td>
+<td align="center">赋值运算符</td>
+<td align="center">a = b;</td>
+</tr>
+<tr>
+<td align="center">+、-、*、/、（）</td>
+<td align="center">基本四则运算</td>
+<td align="center">a = (b + c) * d;</td>
+</tr>
+<tr>
+<td align="center">%</td>
+<td align="center">求余运算符</td>
+<td align="center">a = b % 2;</td>
+</tr>
+<tr>
+<td align="center">&amp;、|、^、~</td>
+<td align="center"><strong>位运算</strong>（很重要）</td>
+<td align="center">a = ~b | c;</td>
+</tr>
+<tr>
+<td align="center">&lt;&lt;、&gt;&gt;</td>
+<td align="center">左移、右移（补0）</td>
+<td align="center">a = b &gt;&gt; 2;</td>
+</tr>
+</tbody></table>
+<p>/ ：两边都是整数，整除，向下取整。若左右有一边为浮点数，则会是小数。</p>
+<p>位 ： 比特位。64位操作系统，int占据32位（4个字节），8位一个字节。</p>
+<p>^ ：异或，相同为0，不同为1。逆运算（减法是加法的逆运算）。异或是其本身的逆运算。例：<code>a ^ b = c &lt;=&gt; c ^ a = b &lt;=&gt; c ^ b = a</code>。</p>
+<p>&lt;&lt;：左移一位，相当于 * 2。</p>
+<h3 id="数学库函数"><a href="#数学库函数" class="headerlink" title="数学库函数"></a>数学库函数</h3><h4 id="pow函数：指数函数"><a href="#pow函数：指数函数" class="headerlink" title="pow函数：指数函数"></a>pow函数：指数函数</h4><p>头文件：math.h</p>
+<p>原型：<code>double pow(double a, double b);</code> a是底数，b是指数，返回值是计算结果。</p>
+<h4 id="sqrt函数：开平方函数"><a href="#sqrt函数：开平方函数" class="headerlink" title="sqrt函数：开平方函数"></a>sqrt函数：开平方函数</h4><p>头文件：math.h</p>
+<p>原型：<code>double sqrt(double x);</code>x为被开方数，返回值为计算结果。</p>
+<h4 id="ceil函数：上取整函数"><a href="#ceil函数：上取整函数" class="headerlink" title="ceil函数：上取整函数"></a>ceil函数：上取整函数</h4><p>头文件：math.h</p>
+<p>原型：<code>double ceil(double x);</code></p>
+<p>ceil(4.5) = 5</p>
+<h4 id="floor函数：上取整函数"><a href="#floor函数：上取整函数" class="headerlink" title="floor函数：上取整函数"></a>floor函数：上取整函数</h4><p>头文件：math.h</p>
+<p>原型：<code>double floor(double x);</code></p>
+<p>floor(4.9) = 4</p>
+<h4 id="abs函数：整数绝对值函数"><a href="#abs函数：整数绝对值函数" class="headerlink" title="abs函数：整数绝对值函数"></a>abs函数：整数绝对值函数</h4><p>头文件：stdlib.h</p>
+<p>原型：<code>int abs(int x);</code></p>
+<h4 id="fabs函数：实数绝对值函数"><a href="#fabs函数：实数绝对值函数" class="headerlink" title="fabs函数：实数绝对值函数"></a>fabs函数：实数绝对值函数</h4><p>头文件：math.h</p>
+<p>原型：<code>double fabs(double x);</code></p>
+<h4 id="log函数：以e为底对数函数"><a href="#log函数：以e为底对数函数" class="headerlink" title="log函数：以e为底对数函数"></a>log函数：以e为底对数函数</h4><p>头文件：math.h</p>
+<p>原型：<code>double log(double x);</code></p>
+<h4 id="log10函数：以10为底对数函数（利用换底公式）"><a href="#log10函数：以10为底对数函数（利用换底公式）" class="headerlink" title="log10函数：以10为底对数函数（利用换底公式）"></a>log10函数：以10为底对数函数（利用换底公式）</h4><p>头文件：math.h</p>
+<p>原型：<code>double log10(double x);</code></p>
+<h4 id="acos函数：三角函数"><a href="#acos函数：三角函数" class="headerlink" title="acos函数：三角函数"></a>acos函数：三角函数</h4><p>头文件：math.h</p>
+<p>原型：<code>double acos(double x);</code> x为角度的弧度制。</p>
+<p>acos(-1) = \Pi</p>
+<h4 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h4><ul>
+<li>输出x的立方根</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;math.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">double</span> x;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%lf"</span>, &amp;x);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%lf"</span>, <span class="built_in">pow</span>(x, <span class="number">1.0</span> / <span class="number">3.0</span>));</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li>读入角度值，转化成弧度值</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;math.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PI acos(-1)</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">double</span> x;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%lf"</span>, &amp;x);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%lf"</span>, PI / <span class="number">180.0</span> * x);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="极客学院"><a href="#极客学院" class="headerlink" title="极客学院"></a>极客学院</h4><p><a href="http://wiki.jikexueyuan.com/project/c/" target="_blank" rel="noopener">C语言函数库</a></p>
+
+
+      
+
+    </section>
+    
+      <section class='ArticleMeta'>
+          <div>
+            发布于&nbsp;
+            <time datetime="2020-11-09T12:16:34.128Z" itemprop="datePublished">
+              2020-11-09
+            </time>
+          </div>
+          
+      </section>
+    
+    
+</article>
+
+  
+</div>
+
+            <footer>
+    <div>© 2020 - John Doe </div>
+    <div>
+        <span>
+            Powered by <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a>
+        </span>
+        ,
+        <span>
+            Theme - <a href="https://github.com/nameoverflow/hexo-theme-icalm" target="_blank" rel="noopener">Icalm</a>
+        </span>
+    </div>
+</footer>
+
+        </div>
+    </div>
+</div>
+
+<script src="/js/pager/dist/singlepager.js"></script>
+
+<script>
+var sp = new Pager('data-pager-shell')
+
+</script>
+</body>
+</html>

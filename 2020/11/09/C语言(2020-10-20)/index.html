@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>C语言(2020-10-20) | Hwsater&#39;s Blog</title>
+  
+  
+  
+  <!--link rel="stylesheet" href="//cdn.jsdelivr.net/highlight.js/9.10.0/styles/github-gist.min.css"-->
+  
+<link rel="stylesheet" href="//cdn.jsdelivr.net/highlight.js/9.10.0/styles/github-gist.min.css">
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+<div class="Shell">
+    <aside class='SideBar'>
+    <section class='avatar' style="background-image: url()">
+        <div class='av-pic' style="background-image: url(/assets/head_2.jpg)">
+        </div>
+    </section>
+    <section class='menu'>
+        <div>Hwsater&#39;s Blog</div>
+        
+            <div>虚荣心使我进步</div>
+        
+        <ul>
+          
+            <a href="/" class="Btn">
+              <li>Home</li>
+            </a>  
+          
+            <a href="/archives/" class="Btn">
+              <li>Archive</li>
+            </a>  
+          
+            <a href="/tags" class="Btn">
+              <li>Tags</li>
+            </a>  
+          
+            <a href="/categories/" class="Btn">
+              <li>Categories</li>
+            </a>  
+          
+            <a href="/about" class="Btn">
+              <li>About</li>
+            </a>  
+          
+        </ul>
+    </section>
+    <section class="media">
+        
+    </section>
+</aside>
+
+    <div class="container">
+        <div data-pager-shell>
+            <div>
+  <article class='ContentView'>
+    <header class='PageTitle'>
+        <h1>C语言(2020-10-20)</h1>
+    </header>
+
+    <section>
+      <h3 id="C语言关系运算符"><a href="#C语言关系运算符" class="headerlink" title="C语言关系运算符"></a>C语言关系运算符</h3><table>
+<thead>
+<tr>
+<th align="center">运算符</th>
+<th align="center">说明</th>
+<th align="center">例子</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">==</td>
+<td align="center">等于</td>
+<td align="center">a == b</td>
+</tr>
+<tr>
+<td align="center">!=</td>
+<td align="center">不等于</td>
+<td align="center">a != b</td>
+</tr>
+<tr>
+<td align="center">&lt;、&gt;</td>
+<td align="center">小于和大于</td>
+<td align="center">a &gt; b  a &lt; b</td>
+</tr>
+<tr>
+<td align="center">&lt;= (=&lt;) 、=&gt; (&gt;=)</td>
+<td align="center">小于等于和大于等于</td>
+<td align="center">a &lt;= b  a &gt;= b</td>
+</tr>
+<tr>
+<td align="center">!</td>
+<td align="center">非</td>
+<td align="center">!(0)、!(NULL)</td>
+</tr>
+</tbody></table>
+<p>!!(x) :归一化（利用逻辑运算归一化为0或者1）</p>
+<h3 id="分支结构（选择结构）"><a href="#分支结构（选择结构）" class="headerlink" title="分支结构（选择结构）"></a>分支结构（选择结构）</h3><h4 id="if语句"><a href="#if语句" class="headerlink" title="if语句"></a>if语句</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (表达式) &#123;</span><br><span class="line">    代码；</span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (表达式) &#123;</span><br><span class="line">    代码；</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    代码；</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>注意空格。</p>
+<h5 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h5><p>程序读入一个正整数n，代表学生的成绩，根据分数输出分数档位</p>
+<ul>
+<li><p>n = 0,FOOLISH</p>
+</li>
+<li><p>0 &lt; n &lt;60,FALL</p>
+</li>
+<li><p>60 $\leqslant$ n &lt;75,MEDIUM</p>
+</li>
+<li><p>75 $\leqslant$ n $\leqslant$ 100,GOOD</p>
+</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n);</span><br><span class="line">    <span class="keyword">if</span> (!n) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"FOOLISH\n"</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (n &lt; <span class="number">60</span>) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"FAIL\n"</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (n &lt; <span class="number">75</span>) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"MEDIUM\n"</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (n &lt;= <span class="number">100</span>) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"GOOD\n"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="switch语句"><a href="#switch语句" class="headerlink" title="switch语句"></a>switch语句</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">switch</span> (a) &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">1</span>: code;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">2</span>: code;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">3</span>: code;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>case为条件入口，程序进入case所对应的代码段，依次执行后续代码，直到遇到break，或者switch结构末尾。</p>
+<p>使用条件：<strong>当前变量a有一个明确的整型值</strong></p>
+<h5 id="练习-1"><a href="#练习-1" class="headerlink" title="练习"></a>练习</h5><ul>
+<li><p>请使用switch结构完成如下任务，程序读入一个整数n：</p>
+<p>如果 n = 1：输出one</p>
+<p>如果 n = 2：输出two</p>
+<p>如果 n = 3：输出three</p>
+<p>否则输出error</p>
+</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n);</span><br><span class="line">    <span class="keyword">switch</span> (n) &#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">1</span>: </span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"one\n"</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">2</span>: </span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"two\n"</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">3</span>: </span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"three\n"</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">default</span>:</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"error\n"</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>请使用switch结构完成如下任务，程序读入一个整数n：</p>
+<p>如果 n = 1：输出one two three</p>
+<p>如果 n = 2：输出two three</p>
+<p>如果 n = 3：输出three</p>
+<p>否则输出error</p>
+</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n);</span><br><span class="line">    <span class="keyword">switch</span> (n) &#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">1</span>: </span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"one\n"</span>);</span><br><span class="line">        <span class="keyword">case</span> <span class="number">2</span>: </span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"two\n"</span>);</span><br><span class="line">        <span class="keyword">case</span> <span class="number">3</span>: </span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"three\n"</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">default</span>:</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"error\n"</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="CPU分支预测"><a href="#CPU分支预测" class="headerlink" title="CPU分支预测"></a>CPU分支预测</h4><h5 id="回文整数的判断"><a href="#回文整数的判断" class="headerlink" title="回文整数的判断"></a>回文整数的判断</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">isPalindrome</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;<span class="comment">//if (x &lt; 0)</span></span><br><span class="line">    <span class="keyword">if</span> (__builtin_expect(!!(x &lt; <span class="number">0</span>), <span class="number">0</span>)) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">int</span> y = <span class="number">0</span>, z = x;</span><br><span class="line">    <span class="keyword">while</span> (x) &#123;</span><br><span class="line">        y = y * <span class="number">10</span> + x % <span class="number">10</span>;</span><br><span class="line">        x /= <span class="number">10</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> z == y;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>系统内核中有两条宏语句：（逻辑归一化）</p>
+<p><code>#define likely(x) __builtin_expect(!!(x), 1)//x经常成立</code></p>
+<p><code>#define unlikely(x) __builtin_expect(!!(x), 0) //x不经常成立</code></p>
+<p>告诉CPU：x是经常成立还是不经常成立</p>
+<p>尽量避免使用过多的if…else语句</p>
+<h4 id="循环结构while语句"><a href="#循环结构while语句" class="headerlink" title="循环结构while语句"></a>循环结构while语句</h4><p>每当表达式为真的时候，代码块就执行一次。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> (表达式) &#123;</span><br><span class="line">    代码块；</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>代码块先执行一次，就会判断一次表达式是否为真。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">do</span> &#123;</span><br><span class="line">    代码块；</span><br><span class="line">&#125; <span class="keyword">while</span> (表达式)；</span><br></pre></td></tr></table></figure>
+
+<h5 id="练习-2"><a href="#练习-2" class="headerlink" title="练习"></a>练习</h5><ul>
+<li>请使用while循环实现程序，输出1~100。</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="comment">//while版本</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> (n &lt;= <span class="number">100</span>) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, n);</span><br><span class="line">        ++n;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="comment">//do while版本</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">do</span> &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, n);</span><br><span class="line">        ++n;</span><br><span class="line">    &#125; <span class="keyword">while</span> (n &lt;= <span class="number">100</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="for语句"><a href="#for语句" class="headerlink" title="for语句"></a>for语句</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (初始化;循环条件;执行后操作) &#123;</span><br><span class="line">    代码块；</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>执行顺序：</p>
+<ul>
+<li>初始化</li>
+<li>循环条件判断</li>
+<li>执行代码块</li>
+<li>执行后操作</li>
+<li>跳转到第二步</li>
+</ul>
+<h4 id="amp-amp-运算符的短路原则，-长路规则"><a href="#amp-amp-运算符的短路原则，-长路规则" class="headerlink" title="&amp;&amp;运算符的短路原则，||长路规则"></a>&amp;&amp;运算符的短路原则，||长路规则</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a,b;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;a, &amp;b);</span><br><span class="line">    <span class="keyword">if</span> (a != b) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"not equal!\n"</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"equal\n"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%s\n"</span>, (a - b) ? <span class="string">"not equal"</span> : <span class="string">"equal"</span>);</span><br><span class="line">    a = <span class="number">0</span>, b = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span> ((a++) &amp;&amp; (b++)) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"true\n"</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"false\n"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"a = %d, b = %d\n"</span>, a, b);<span class="comment">//a = 1, b = 0;短路原则a = 0判断之后不再对b进行判断，因为表达式就为假</span></span><br><span class="line">    <span class="keyword">if</span> ((a++) || (b++)) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"true\n"</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"false\n"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"a = %d, b = %d\n"</span>, a, b);<span class="comment">//a = 2, b = 0;长路原则，a为真之后不再对b进行判断</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="练习-3"><a href="#练习-3" class="headerlink" title="练习"></a>练习</h4><p>随机5个数，判断奇数</p>
+<p>计算机中不存在真正的随机过程。需要随机种子。<code>srand(time(0))</code>需要包括<code>stdlib.h</code>和<code>time.h</code></p>
+<p><code>if (i) printf(&quot; &quot;);</code>改为<code>i &amp;&amp; printf(&quot; &quot;);</code></p>
+<p><code>val % 2</code>改为<code>val &amp; 1</code></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;time.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a, b, n, cnt = <span class="number">0</span>;</span><br><span class="line">    srand(time(<span class="number">0</span>));</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        <span class="keyword">int</span> val = rand() % <span class="number">100</span>;</span><br><span class="line">        <span class="keyword">if</span> (val % <span class="number">2</span>) &#123;</span><br><span class="line">            cnt += <span class="number">1</span>;</span><br><span class="line">        &#125;<span class="comment">//cnt += (val &amp; 1);</span></span><br><span class="line">        <span class="keyword">if</span> (i) <span class="built_in">printf</span>(<span class="string">" "</span>);<span class="comment">//i &amp;&amp; val</span></span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d"</span>, val);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"odd num : %d\n"</span>, cnt);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;a, &amp;b);</span><br><span class="line">    <span class="keyword">if</span> (a != b) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"not equal!\n"</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"equal\n"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%s\n"</span>, (a - b) ? <span class="string">"not equal"</span> : <span class="string">"equal"</span>);</span><br><span class="line">    a = <span class="number">0</span>, b = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span> ((a++) &amp;&amp; (b++)) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"true\n"</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"false\n"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"a = %d, b = %d\n"</span>, a, b);</span><br><span class="line">    <span class="keyword">if</span> ((a++) || (b++)) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"true\n"</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"false\n"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"a = %d, b = %d\n"</span>, a, b);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (val % <span class="number">2</span>) &#123;</span><br><span class="line">	cnt += <span class="number">1</span>;</span><br><span class="line">&#125;<span class="comment">//cnt += (val &amp; 1);</span></span><br><span class="line"><span class="keyword">if</span> (i) <span class="built_in">printf</span>(<span class="string">" "</span>);<span class="comment">//i &amp;&amp; val</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//替换成：</span></span><br><span class="line">cnt += (val &amp; <span class="number">1</span>);<span class="comment">//是不是奇数看二进制最后一位是0还是1</span></span><br><span class="line">i &amp;&amp; val;</span><br></pre></td></tr></table></figure>
+
+<h4 id="练习-4"><a href="#练习-4" class="headerlink" title="练习"></a>练习</h4><p>十进制下是否为回文数字</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">rev_num</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (n &lt; <span class="number">0</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> x = n, temp = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (x) &#123;</span><br><span class="line">        temp = temp * <span class="number">10</span> + x % <span class="number">10</span>;</span><br><span class="line">        x /= <span class="number">10</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> temp == n;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%s\n"</span>, rev_num(n) ? <span class="string">"YES"</span> : <span class="string">"NO"</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>二进制下是否为回文数字</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">rev_num</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (n &lt; <span class="number">0</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> x = n, temp = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (x) &#123;</span><br><span class="line">        temp = temp * <span class="number">2</span> + x % <span class="number">2</span>;</span><br><span class="line">        x /= <span class="number">2</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> temp == n;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%s\n"</span>, rev_num(n) ? <span class="string">"YES"</span> : <span class="string">"NO"</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>综合判断，一个十进制整数n，在某进制下是否为回文数字</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">rev_num</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span> base)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (n &lt; <span class="number">0</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> x = n, temp = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (x) &#123;</span><br><span class="line">        temp = temp * base + x % base;</span><br><span class="line">        x /= base;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> temp == n;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%s\n"</span>, rev_num(n, <span class="number">10</span>) ? <span class="string">"YES"</span> : <span class="string">"NO"</span>);</span><br><span class="line">    <span class="keyword">int</span> x = n, digit = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">do</span>  &#123;</span><br><span class="line">        x /= <span class="number">10</span>;</span><br><span class="line">        digit +=<span class="number">1</span>;</span><br><span class="line">    &#125; <span class="keyword">while</span>(x);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d has %d digits\n"</span>, n, digit);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+      
+
+    </section>
+    
+      <section class='ArticleMeta'>
+          <div>
+            发布于&nbsp;
+            <time datetime="2020-11-09T12:16:34.125Z" itemprop="datePublished">
+              2020-11-09
+            </time>
+          </div>
+          
+      </section>
+    
+    
+</article>
+
+  
+</div>
+
+            <footer>
+    <div>© 2020 - John Doe </div>
+    <div>
+        <span>
+            Powered by <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a>
+        </span>
+        ,
+        <span>
+            Theme - <a href="https://github.com/nameoverflow/hexo-theme-icalm" target="_blank" rel="noopener">Icalm</a>
+        </span>
+    </div>
+</footer>
+
+        </div>
+    </div>
+</div>
+
+<script src="/js/pager/dist/singlepager.js"></script>
+
+<script>
+var sp = new Pager('data-pager-shell')
+
+</script>
+</body>
+</html>
